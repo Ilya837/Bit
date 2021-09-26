@@ -10,21 +10,29 @@ uint TBitField::GetMemMask(const uint n) const
 	return 1 << (n % (sizeof(uint) * 8));
 }
 
-TBitField::TBitField(uint len = 1): BitLen(len)
+TBitField::TBitField() {
+	BitLen = 1;
+	MemLen = 1;
+	pMem = new uint[MemLen];
+	pMem[0] = 0;
+}
+
+TBitField::TBitField(uint len ): BitLen(len)
 {
 	assert(len > 0);
 
 	MemLen = (len - 1) / 32 + 1;
 	pMem = new uint[MemLen];
-	for (int i = 0; i < BitLen; i++) pMem[i] = 0;
+	for (int i = 0; i < MemLen; i++) pMem[i] = 0; 
+
 }
 
 TBitField::TBitField(const TBitField& bf)
 {
 	BitLen = bf.BitLen;
 	MemLen = bf.MemLen;
-	pMem = new uint(MemLen);
-	for (int i = 0; i < BitLen; i++) pMem[i] = bf.pMem[i];
+	pMem = new uint[MemLen];
+	for (int i = 0; i < MemLen; i++) pMem[i] = bf.pMem[i];
 }
 
 TBitField::~TBitField()
@@ -67,7 +75,10 @@ TBitField& TBitField::operator=(const TBitField& bf)
 {
 	BitLen = bf.BitLen;
 	MemLen = bf.MemLen;
+
 	delete[] pMem;
+	
+
 	pMem = new uint[MemLen];
 	for (int i = 0; i < MemLen; i++) {
 		pMem[i] = bf.pMem[i];
@@ -107,7 +118,7 @@ TBitField TBitField::operator|(const TBitField& bf) const
 	for (int i = 0; i < bf.MemLen; i++) {
 		tbf.pMem[i] |= bf.pMem[i];
 	}
-
+	
 	return tbf;
 }
 
@@ -120,16 +131,23 @@ TBitField TBitField::operator~()
 	return tbf;
 }
 
-/*istream& operator>>(istream& in, TBitField& bf)
+istream& operator>>(istream& in, TBitField& bf)
 {
+	int i = 0;
 	string str;
 	in >> str;
 	bitset<sizeof(str)> bit(str);
+	assert(bf.GetLength() >= sizeof(str));
 	
-	for (int i = 0; i < sizeof(str); i++) {
 
+	for ( i = 0; i < sizeof(str); i++) {
+		bf.SetBit(i, bit.test(i));
 	}
-}*/
+	for (i ; i < bf.GetLength(); i++) {
+		bf.SetBit(i, 0);
+	}
+	return in;
+}
 
 ostream& operator<<(ostream& out, TBitField& bf)
 {

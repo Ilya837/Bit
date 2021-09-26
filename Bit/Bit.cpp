@@ -3,10 +3,15 @@
 #include "TSet.h"
 int main()
 {
-	string str = "100010";
-	bitset<sizeof(str)> a(str);
-	int b = 0;
-	TSet k = (TSet)b;
-
-	
+	TBitField bit(33);
+	bit.SetBit(31,1);
+	bit.SetBit(25, 1);
+	bit.SetBit(26, 1);
+	bit.SetBit(25, 0);
+	bit.SetBit(32, 1);
+	cout << bit << "\n";
+	TBitField bit2(34);
+	bit2 = TBitField(bit);
+	TSet a(bit);
+	cout << a;
 }

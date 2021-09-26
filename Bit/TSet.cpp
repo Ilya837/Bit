@@ -1,6 +1,6 @@
 #include "TSet.h"
 
-TSet::TSet(int size)
+TSet::TSet(uint size)
 {
     MaxPower = size;
     BitField = TBitField(size);
@@ -92,7 +92,7 @@ TSet TSet::operator~()
     return tmp;
 }
 
-istream& operator<<(istream& in, TSet& ts)
+istream& operator >> (istream& in, TSet& ts)
 {
     int temp;
     char ch;
@@ -111,22 +111,23 @@ istream& operator<<(istream& in, TSet& ts)
 
 }// Формат ввода : 
 
-ostream& operator>>(ostream& out, TSet& ts)
+ostream& operator << (ostream& out, TSet& ts)
 {
-    int a = ts.MaxPower - 1;
-    int i;
+    int a = ts.GetMaxPower() ;
     out << '{';
-    for ( i = 0; i < a; i++) {
-        if (ts.IsMemper(i)) {
-            out << i << ',';
-        }
-    }
 
-    if (ts.IsMemper(i)) {
-        out << i ;
+    int i = 0;
+    while (i < a) {
+        if (ts.IsMemper(i)) {
+            out << i;
+            break;
+        }
+        i++;
     }
-    else {
-        out.
+    i++;
+    while (i < a) {
+        if (ts.IsMemper(i)) out << ',' << i;
+        i++;
     }
 
     out << '}';

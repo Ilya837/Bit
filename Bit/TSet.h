@@ -6,10 +6,10 @@
 class TSet
 {
 private:
-	int MaxPower;
+	uint MaxPower;
 	TBitField BitField;
 public:
-	TSet(int size);
+	TSet(uint size);
 	TSet(const TSet& set);
 	TSet(const TBitField& tb);
 
@@ -28,7 +28,7 @@ public:
 	TSet operator& (const TSet& n) const;
 	TSet operator~ ();
 
-	friend istream& operator << (istream& in, TSet& ts);
-	friend ostream& operator >> (ostream& out, TSet& ts);
+	friend istream& operator >> (istream& in, TSet& ts);
+	friend ostream& operator << (ostream& out, TSet& ts);
 
 };

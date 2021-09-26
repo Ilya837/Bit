@@ -18,7 +18,8 @@ private:
 	uint GetMemIndex(const uint n) const; // Возвращает номер байта по номеру бита
 	uint GetMemMask(const uint n) const; 
 public:
-	TBitField(uint len = 1);
+	TBitField();
+	TBitField(uint len );
 	TBitField(const TBitField& bf);
 	~TBitField();
 	uint GetLength()const; // размер в битах
