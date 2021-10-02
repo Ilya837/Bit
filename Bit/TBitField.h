@@ -30,7 +30,7 @@ public:
 	TBitField operator & (const TBitField& bf) const;
 	TBitField operator | (const TBitField& bf) const;
 	TBitField operator ~();
-	//friend istream& operator >> (istream& in, TBitField& bf);
+	friend istream& operator >> (istream& in, TBitField& bf);
 	friend ostream& operator << (ostream& out, TBitField& bf);
 };
 

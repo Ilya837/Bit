@@ -2,6 +2,7 @@
 
 #include "TBitField.h"
 #include <math.h>
+#include <string>
 
 class TSet
 {

@@ -96,6 +96,9 @@ istream& operator >> (istream& in, TSet& ts)
 {
     int temp;
     char ch;
+    for (int i = 0; i < ts.GetMaxPower(); i++) {
+        ts.DelElement(i);
+    }
     do {
         in >> ch;
     } while (ch != '{');
@@ -105,6 +108,8 @@ istream& operator >> (istream& in, TSet& ts)
         do {
             in >> ch;
         } while ((ch != ',') && (ch != '}'));
+        if(ch == ',') in >> temp;        
+        ts.InsElement(temp);
     } while (ch != '}');
 
     return in;

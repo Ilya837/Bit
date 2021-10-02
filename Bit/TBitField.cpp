@@ -79,7 +79,7 @@ TBitField& TBitField::operator=(const TBitField& bf)
 	delete[] pMem;
 	
 
-	pMem = new uint[MemLen];
+	pMem = new uint[BitLen];
 	for (int i = 0; i < MemLen; i++) {
 		pMem[i] = bf.pMem[i];
 	}
@@ -88,8 +88,8 @@ TBitField& TBitField::operator=(const TBitField& bf)
 
 TBitField TBitField::operator&(const TBitField& bf) const
 {
-	uint len = MemLen;
-	if (len < bf.MemLen) len = bf.MemLen;
+	uint len = BitLen;
+	if (len < bf.BitLen) len = bf.BitLen;
 
 	TBitField tbf(len);
 
@@ -106,8 +106,8 @@ TBitField TBitField::operator&(const TBitField& bf) const
 
 TBitField TBitField::operator|(const TBitField& bf) const
 {
-	uint len = MemLen;
-	if (len < bf.MemLen) len = bf.MemLen;
+	uint len = BitLen;
+	if (len < bf.BitLen) len = bf.BitLen;
 
 	TBitField tbf(len);
 
@@ -124,7 +124,7 @@ TBitField TBitField::operator|(const TBitField& bf) const
 
 TBitField TBitField::operator~()
 {
-	TBitField tbf(MemLen);
+	TBitField tbf(BitLen);
 	for (int i = 0; i < MemLen; i++) {
 		tbf.pMem[i] = ~(pMem[i]);
 	}
@@ -137,7 +137,7 @@ istream& operator>>(istream& in, TBitField& bf)
 	string str;
 	in >> str;
 	bitset<sizeof(str)> bit(str);
-	assert(bf.GetLength() >= sizeof(str));
+	assert(bf.GetLength() >= str.size());
 	
 
 	for ( i = 0; i < sizeof(str); i++) {
