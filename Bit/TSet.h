@@ -10,11 +10,9 @@ private:
 	uint MaxPower;
 	TBitField BitField;
 public:
-	TSet(uint size);
+	TSet(uint size = 1);
 	TSet(const TSet& set);
 	TSet(const TBitField& tb);
-
-	operator TBitField();
 
 	int GetMaxPower();
 	void InsElement(const int n);
